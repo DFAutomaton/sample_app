@@ -16,7 +16,7 @@ describe UsersController do
 	
 	it "should have the right title" do
 	  get 'new'
-	  response.should_have_selector("title", :content => @base_title + "Sign Up")
+	  response.should have_selector("title", :content => @base_title + "Sign Up")
 	end
   end
 
