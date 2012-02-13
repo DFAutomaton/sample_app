@@ -11,7 +11,7 @@ require 'digest'
 #  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
-#
+#MM
 
 class User < ActiveRecord::Base
 	attr_accessor :password
@@ -52,11 +52,11 @@ private
 	end
 
 	def encrypt(string)
-		string # Only a temporary implementation!
+		secure_hash("#{salt}--#{string}")
 	end
 	
 	def make_salt
-		secure_hash("#{Time.now.utc}--#{passowrd}")
+		secure_hash("#{Time.now.utc}--#{password}")
 	end
 	
 	def secure_hash(string)
