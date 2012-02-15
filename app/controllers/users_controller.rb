@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 	def new
 		@title="Sign Up"
-		@user = User.new #( :name => "foo bar", :email => "foo@bar.com", :password => "foobar", :password_confirmation => "foobar" )
+		@user = User.new
 	end
   
 	def show
