@@ -2,18 +2,20 @@
 #
 # Table name: users
 #
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  encrypted_password :string(255)
-#  salt               :string(255)
+#	id								 :integer				 not null, primary key
+#	name							 :string(255)
+#	email							:string(255)
+#	created_at				 :datetime				not null
+#	updated_at				 :datetime				not null
+#	encrypted_password :string(255)
+#	salt							 :string(255)
 #
 
 require 'spec_helper'
 
 describe User do
+
+	#render_views
 	
 	before(:each) do
 		@attr = { 
@@ -32,7 +34,7 @@ describe User do
 		no_name_user = User.new(@attr.merge(:name => ""))
 		no_name_user.should_not be_valid
 	end
-  
+	
 	it "should reject names that are too long" do
 		long_name = "a" * 51
 		long_name_user = User.new(@attr.merge(:name => long_name))
@@ -117,11 +119,35 @@ describe User do
 		
 		it "should be true if the passwords match" do
 			@user.has_password?(@attr[:password]).should be_true
-		end    
+		end		
 
 		it "should be false if the passwords don't match" do
 			@user.has_password?("invalid").should be_false
 		end
 	end
 	
+	describe "sign in/out" do
+		describe "failure" do
+			it "should not sign a user in" do
+				visit :signin_path
+				fill_in :email,		:with => ""
+				fill_in :password,	:with => ""
+				click_button
+				response.should have_selector("div.flash.error", :content => "Invalid")
+			end
+		end
+
+		describe "success" do
+			it "should sign a user in and out" do
+				user = Factory(:user)
+				visit :signin_path
+				fill_in :email,		:with => user.email
+				fill_in :password,	:with => user.password
+				click_button
+				controller.should be_signed_in
+				click_link "Sign out"
+				controller.should_not be_signed_in
+			end
+		end
+	end
 end
