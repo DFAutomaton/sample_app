@@ -2,13 +2,13 @@
 #
 # Table name: users
 #
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  encrypted_password :string(255)
-#  salt               :string(255)
+#	id								 :integer				 not null, primary key
+#	name							 :string(255)
+#	email							:string(255)
+#	created_at				 :datetime				not null
+#	updated_at				 :datetime				not null
+#	encrypted_password :string(255)
+#	salt							 :string(255)
 #
 
 require 'spec_helper'
@@ -32,7 +32,7 @@ describe User do
 		no_name_user = User.new(@attr.merge(:name => ""))
 		no_name_user.should_not be_valid
 	end
-  
+	
 	it "should reject names that are too long" do
 		long_name = "a" * 51
 		long_name_user = User.new(@attr.merge(:name => long_name))
@@ -117,7 +117,7 @@ describe User do
 		
 		it "should be true if the passwords match" do
 			@user.has_password?(@attr[:password]).should be_true
-		end    
+		end		
 
 		it "should be false if the passwords don't match" do
 			@user.has_password?("invalid").should be_false
