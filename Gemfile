@@ -16,6 +16,7 @@ group :test do
   gem 'autotest'
   gem 'autotest-growl'
   gem 'factory_girl_rails', '1.0'
+  gem 'database_cleaner', '~> 0.7.1'
 end
 
 group :production do

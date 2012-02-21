@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 		else
 			#store user in session and render user get action?
 			sign_in user
-			redirect_to user
+			redirect_back_or user
 		end
 		
 	end
